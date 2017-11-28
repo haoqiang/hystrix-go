@@ -107,13 +107,13 @@ func NewDatadogCollector(addr, prefix string) (func(string, string) metricCollec
 // circuit-metric tuple, and add logging if you need it.
 func NewDatadogCollectorWithClient(client DatadogClient) func(string, string) metricCollector.MetricCollector {
 	return func(name string, commandGroup string) metricCollector.MetricCollector {
-    // there's no need to report the tag if it is already empty
-    if commandGroup == "" {
-      return &DatadogCollector{
-        client: client,
-        tags:   []string{"hystrixcircuit:" + name},
-      }
-    }
+		// there's no need to report the tag if it is already empty
+		if commandGroup == "" {
+			return &DatadogCollector{
+				client: client,
+				tags:   []string{"hystrixcircuit:" + name},
+			}
+		}
 		return &DatadogCollector{
 			client: client,
 			tags:   []string{"hystrixcircuit:" + name, "commandGroup:" + commandGroup},
